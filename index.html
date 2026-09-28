@@ -1,1 +1,77 @@
-<!-- Standalone frontend placeholder; Flask serves backend/templates/index.html. -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevOps Pipeline Agent</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<main class="container">
+    <header>
+        <p class="eyebrow">LOCAL DEVOPS AGENT</p>
+        <h1>DevOps Pipeline Agent</h1>
+        <p class="subtitle">Analyze a local project, get DevOps recommendations, and generate a CI/CD pipeline.</p>
+    </header>
+
+    <section class="card">
+        <h2>1. Analyze a project</h2>
+        <p class="hint">Enter a folder path on this computer. Leave it empty to analyze this application itself.</p>
+        <label>Project folder
+            <input id="project_path" placeholder="Example: C:\Users\YourName\Downloads\my-project">
+        </label>
+        <button id="analyzeBtn">Analyze Project</button>
+    </section>
+
+    <section id="analysisCard" class="card hidden">
+        <h2>Project Analysis</h2>
+        <div id="facts" class="facts"></div>
+        <h3>DevOps recommendations</h3>
+        <ul id="recommendations"></ul>
+        <h3>Sample detected files</h3>
+        <pre><code id="files"></code></pre>
+    </section>
+
+    <section class="card">
+        <h2>2. Generate a pipeline</h2>
+        <form id="pipelineForm">
+            <label>Project name
+                <input id="project_name" value="demo-project" required>
+            </label>
+            <label>Language
+                <select id="language">
+                    <option value="python">Python</option>
+                    <option value="javascript">JavaScript</option>
+                    <option value="node">Node.js</option>
+                    <option value="java">Java</option>
+                </select>
+            </label>
+            <label>Test command
+                <input id="test_command" placeholder="Leave empty for a default">
+            </label>
+            <label>Build command
+                <input id="build_command" placeholder="Leave empty for a default">
+            </label>
+            <label>Deployment target
+                <select id="deploy_target">
+                    <option value="none">None</option>
+                    <option value="docker">Docker</option>
+                </select>
+            </label>
+            <button type="submit">Generate Pipeline</button>
+        </form>
+    </section>
+
+    <section id="result" class="card hidden">
+        <div class="result-header">
+            <h2>Generated Pipeline</h2>
+            <button id="copyBtn" type="button" class="secondary">Copy YAML</button>
+        </div>
+        <pre><code id="workflow"></code></pre>
+    </section>
+
+    <p id="error" class="error hidden"></p>
+</main>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
